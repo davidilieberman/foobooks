@@ -15,26 +15,27 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/books', function() {
-  return 'Lots of books ... ';
-});
+Route::get('/books', 'BookController@index')->name('books.index');
 
-Route::get('/books/create', function() {
-  $view = '<form method="POST" action="/books/create">';
-  $view .= csrf_field();
-  $view .= '<label>Title <input type="text" name="title"/></label>';
-  $view .= '<input type="submit"/>';
-  $view .= '</form>';
-  return $view;
-});
+Route::get('/books/create', 'BookController@create')->name('books.create');
 
-Route::post('/books/create', function() {
-  dd(Request::all());
-});
+#Route::post('/books', function() {
+#  dd(Request::all());
+#})->name('books.store');
 
-Route::get('/books/show/{title?}', function($title = '') {
-  if ($title == '') {
-    return 'Please supply a title';
-  }
-  return 'Results for the book '.$title;
-})->name('books.show');
+Route::post('/books', 'BookController@store')->name('books.store');
+
+// Route::get('/books/{book?}', function($book = '') {
+//   if ($title == '') {
+//     return 'Please supply a title';
+//   }
+//   return 'Results for the book '.$title;
+// })->name('books.show');
+
+Route::get('/books/{book}', 'BookController@show')->name('books.show');
+
+Route::get('/books/{book}/edit', 'BookController@edit')->name('books.edit');
+
+Route::put('/books/{book}', 'BookController@update')->name('books.update');
+
+Route::delete('/books/{book}', 'BookController@delete')->name('books.delete');
