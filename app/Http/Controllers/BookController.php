@@ -27,11 +27,8 @@ class BookController extends Controller {
     return 'Storing a book ... ';
   }
 
-  public function show($book = '') {
-    if ($book == '') {
-      return 'Please supply a title';
-    }
-    return 'Results for the book '.$book;
+  public function show($title) {
+    return view('books.show')->with('title', $title);
   }
 
   public function edit($book) {

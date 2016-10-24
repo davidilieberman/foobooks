@@ -32,10 +32,32 @@ Route::post('/books', 'BookController@store')->name('books.store');
 //   return 'Results for the book '.$title;
 // })->name('books.show');
 
-Route::get('/books/{book}', 'BookController@show')->name('books.show');
+Route::get('/books/{title}', 'BookController@show')->name('books.show');
 
 Route::get('/books/{book}/edit', 'BookController@edit')->name('books.edit');
 
 Route::put('/books/{book}', 'BookController@update')->name('books.update');
 
 Route::delete('/books/{book}', 'BookController@delete')->name('books.delete');
+
+Route::get('/example', function() {
+  return App::environment();
+});
+
+Route::get('/debugbar', function() {
+  $data = Array('foo' => 'bar');
+  Debugbar::info($data);
+  Debugbar::info('Current environment: '.App::environment());
+  Debugbar::error('Error!');
+  Debugbar::warning('Danger, Will Robinson!');
+  Debugbar::addMessage('Another message', 'mylabel');
+
+  return 'Demo of debugbar features';
+});
+
+Route::get('/random', function() {
+  $random = new Rych\Random\Random();
+  return $random->getRandomString(12);
+});
+
+Route::get('logs', '\Rap2hpoutre\LaravelLogViewer\LogViewerController@index');
