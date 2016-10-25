@@ -2,7 +2,7 @@
 <html>
 <head>
   <title>
-    {{ --Yield the title if it exists, else default to 'Foobooks' --}}
+    {{-- Yield the title if it exists, else default to 'Foobooks' --}}
     @yield('title', 'Foobooks')
   </title>
 
@@ -31,6 +31,6 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 
   @yield('body')
-     
+
 </body>
 </html>

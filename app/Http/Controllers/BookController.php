@@ -2,6 +2,7 @@
 
 namespace Foobooks\Http\Controllers;
 
+use Illuminate\Http\Request;
 use Foobooks\Http\Controllers\Controller;
 
 class BookController extends Controller {
@@ -10,29 +11,36 @@ class BookController extends Controller {
    * Responds to GET /books
    */
   public function index() {
-    return 'All the books are here';
+    return view('books.index');
   }
 
   public function create() {
-    $view = '<form method="POST" action="/books">';
-    $view .= csrf_field();
-    $view .= '<label>Title <input type="text" name="title"/></label>';
-    $view .= '<input type="submit"/>';
-    $view .= '</form>';
-    return $view;
+    // $view = '<form method="POST" action="/books">';
+    // $view .= csrf_field();
+    // $view .= '<label>Title <input type="text" name="title"/></label>';
+    // $view .= '<input type="submit"/>';
+    // $view .= '</form>';
+    // return $view;
+    return view('books.create');
   }
 
   public function store(Request $request) {
     #dd(Request::all());
-    return 'Storing a book ... ';
+    $this->validate($request, [
+      'title' => 'required|min:3'
+    ]);
+
+    $title = $request->input('title');
+
+    return 'Storing a book ' .$title;
   }
 
   public function show($title) {
     return view('books.show')->with('title', $title);
   }
 
-  public function edit($book) {
-    return 'To show form edit ' .$book;
+  public function edit($title) {
+    return view('books.edit')->with('title', $title);
   }
 
   public function update($book) {
