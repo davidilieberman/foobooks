@@ -11,6 +11,30 @@
 |
 */
 
+Route::get('/debug', function() {
+  echo '<pre>';
+
+  echo '<h1>Environment</h1>';
+  echo '<h2>'.App::environment().'</h2>';
+
+  echo '<h2>Debugging: ';
+  if (config('app.debug')) echo "Yes"; else echo "No";
+  echo '</h2>';
+
+  echo '<h1>Database Config</h1>';
+
+  echo '<h2>Testing connection</h2>';
+  try {
+      $results = DB::select('SHOW DATABASES;');
+      echo '<strong>Connection confirmed</strong><br/>';
+      echo 'Databases: <br/>';
+      print_r($results);
+  } catch (Exception $e) {
+    echo '<strong>Caught exc: ', $e->getMessage(), '</strong>\n';
+  }
+
+});
+
 Route::get('/', function () {
     return view('welcome');
 });
